@@ -1,0 +1,19 @@
+from collections import deque   
+
+def solution(numbers, target):
+    answer = 0
+    queue = deque([(0,0)]) # cumulative sum, the number of trial
+
+    while queue:
+        cumsum, trial = queue.popleft()
+        if trial > len(numbers):
+            break
+        elif (cumsum == target) & (trial == len(numbers)):
+            answer += 1
+        queue.append( (cumsum + numbers[trial-1], trial + 1) )
+        queue.append( (cumsum - numbers[trial-1], trial + 1) )
+
+    return answer
+
+
+solution([1,1,1,1,1], 3)
